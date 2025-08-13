@@ -2,11 +2,12 @@ services:
   mongo:
     image: mongo:7.0
     volumes:
-      - /Users/ppppphrt/mongo_data:/data/db   
+      - mongo_data:/data/db
     restart: unless-stopped
 
   todo-backend:
     build: ./backend
+    image: phavida/todo-backend:latest
     environment:
       - MONGO_URL=mongodb://mongo:27017/todos
     ports:
@@ -17,8 +18,12 @@ services:
 
   todo-frontend:
     build: ./frontend
+    image: phavida/todo-frontend:latest
     ports:
       - "3000:3000"
     depends_on:
       - todo-backend
     restart: unless-stopped
+
+volumes:
+  mongo_data:
