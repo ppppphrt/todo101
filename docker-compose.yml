@@ -1,0 +1,24 @@
+services:
+  mongo:
+    image: mongo:7.0
+    volumes:
+      - /Users/ppppphrt/mongo_data:/data/db   # or use a named volume (see below)
+    restart: unless-stopped
+
+  todo-backend:
+    build: ./backend
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/todos
+    ports:
+      - "15000:15000"
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+  todo-frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - todo-backend
+    restart: unless-stopped
