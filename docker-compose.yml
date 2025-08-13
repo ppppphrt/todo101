@@ -2,7 +2,7 @@ services:
   mongo:
     image: mongo:7.0
     volumes:
-      - /Users/ppppphrt/mongo_data:/data/db   # or use a named volume (see below)
+      - /Users/ppppphrt/mongo_data:/data/db   
     restart: unless-stopped
 
   todo-backend:
